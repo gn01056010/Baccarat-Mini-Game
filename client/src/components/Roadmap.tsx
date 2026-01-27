@@ -22,6 +22,7 @@ export function Roadmap({ roadmaps }: RoadmapProps) {
           <div className="grid grid-rows-6 grid-flow-col gap-[1px] p-[1px] min-w-max">
             {roadmaps.beadPlate.map((col, i) => (
               <div key={i} className="contents">
+                <div className="absolute top-0 left-0 px-2 py-0.5 text-[10px] text-white/40 uppercase tracking-tighter bg-white/5 z-10">珠盤路</div>
                 {col.map((cell, j) => (
                   <BeadCell key={`${i}-${j}`} cell={cell} />
                 ))}
@@ -35,7 +36,8 @@ export function Roadmap({ roadmaps }: RoadmapProps) {
         <div className="w-full md:w-2/3 h-full flex flex-col gap-1">
           
           {/* Big Road */}
-          <ScrollArea className="flex-1 bg-white/5 rounded border border-white/10">
+          <ScrollArea className="flex-1 bg-white/5 rounded border border-white/10 relative">
+            <div className="absolute top-0 left-0 px-2 py-0.5 text-[10px] text-white/40 uppercase tracking-tighter bg-white/5 z-10">大路</div>
             <div className="grid grid-rows-6 grid-flow-col gap-[1px] p-[1px] min-w-max">
                {roadmaps.bigRoad.map((col, i) => (
                  <div key={i} className="contents">
@@ -52,6 +54,7 @@ export function Roadmap({ roadmaps }: RoadmapProps) {
           <div className="h-1/3 flex gap-1">
              {/* Big Eye Boy */}
              <div className="w-1/3 bg-white/5 border border-white/10 relative overflow-hidden">
+               <div className="absolute top-0 left-0 px-1 py-0.5 text-[7px] text-white/30 uppercase bg-black/40 z-10">大眼仔</div>
                <div className="grid grid-rows-6 grid-flow-col gap-[1px] p-[1px]">
                   {/* Rendering placeholder for complex derived roads */}
                   {roadmaps.bigEyeBoy.slice(0, 20).map((col, i) => col.map((val, j) => (
@@ -61,6 +64,7 @@ export function Roadmap({ roadmaps }: RoadmapProps) {
              </div>
              {/* Small Road */}
              <div className="w-1/3 bg-white/5 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 px-1 py-0.5 text-[7px] text-white/30 uppercase bg-black/40 z-10">小路</div>
                 <div className="grid grid-rows-6 grid-flow-col gap-[1px] p-[1px]">
                   {roadmaps.smallRoad.slice(0, 20).map((col, i) => col.map((val, j) => (
                     val && <div key={`sr-${i}-${j}`} className={cn("w-1.5 h-1.5 rounded-full bg-current", val === 'red' ? "text-red-500" : "text-blue-500")} style={{ gridColumn: i+1, gridRow: j+1 }} />
@@ -69,6 +73,7 @@ export function Roadmap({ roadmaps }: RoadmapProps) {
              </div>
              {/* Cockroach Road */}
              <div className="w-1/3 bg-white/5 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 px-1 py-0.5 text-[7px] text-white/30 uppercase bg-black/40 z-10">蟑螂路</div>
                 <div className="grid grid-rows-6 grid-flow-col gap-[1px] p-[1px]">
                   {roadmaps.cockroachRoad.slice(0, 20).map((col, i) => col.map((val, j) => (
                     val && <div key={`cr-${i}-${j}`} className={cn("w-1.5 h-[1px] bg-current transform -rotate-45 origin-center", val === 'red' ? "text-red-500" : "text-blue-500")} style={{ gridColumn: i+1, gridRow: j+1 }} />
@@ -95,7 +100,7 @@ function BeadCell({ cell }: { cell: RoadmapCell }) {
   return (
     <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center p-0.5 relative bg-white/5">
       <div className={cn("w-full h-full rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold text-white shadow-sm", bgColor)}>
-        {cell.winner === 'player' ? 'P' : cell.winner === 'banker' ? 'B' : 'T'}
+        {cell.winner === 'player' ? '閒' : cell.winner === 'banker' ? '莊' : '和'}
         {cell.isPair && <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-white border border-black" />}
       </div>
     </div>

@@ -124,9 +124,15 @@ class BaccaratRules {
     if (playerScore > bankerScore) winner = 'player';
     else if (bankerScore > playerScore) winner = 'banker';
 
+    const winnerName = {
+      'player': '閒家',
+      'banker': '莊家',
+      'tie': '和局'
+    }[winner];
+
     const outcome = isNatural 
-      ? `Natural ${winner === 'tie' ? 'Tie' : winner.charAt(0).toUpperCase() + winner.slice(1)}` 
-      : `${winner.charAt(0).toUpperCase() + winner.slice(1)} Wins`;
+      ? `天生贏家 - ${winner === 'tie' ? '和局' : winnerName + '勝'}` 
+      : `${winnerName}${winner === 'tie' ? '' : '勝'}`;
 
     return {
       player: {

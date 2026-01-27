@@ -73,8 +73,8 @@ export default function Game() {
       <header className="bg-black/30 backdrop-blur-md border-b border-white/10 px-4 py-3 flex justify-between items-center z-20">
         <div className="flex items-center gap-4">
           <div className="text-[hsl(var(--casino-gold))] font-serif font-bold text-2xl tracking-wider">
-            BACCARAT
-            <span className="text-xs ml-2 text-white/50 font-sans tracking-normal block md:inline">VIP TABLE 1</span>
+            百家樂
+            <span className="text-xs ml-2 text-white/50 font-sans tracking-normal block md:inline">貴賓席 1</span>
           </div>
           
           <div className="hidden md:flex items-center gap-2 bg-black/40 px-3 py-1 rounded-full border border-white/10">
@@ -91,7 +91,7 @@ export default function Game() {
 
         <div className="flex items-center gap-3">
            <div className="flex flex-col items-end mr-4">
-             <span className="text-xs text-[hsl(var(--casino-gold))] uppercase tracking-widest">Balance</span>
+             <span className="text-xs text-[hsl(var(--casino-gold))] uppercase tracking-widest">餘額</span>
              <div className="flex items-center gap-2 text-white font-mono text-lg font-bold">
                <Wallet className="w-4 h-4 text-[hsl(var(--casino-gold))]" />
                ${userBalance.toLocaleString()}
@@ -148,7 +148,7 @@ export default function Game() {
             
             {/* PLAYER HAND */}
             <div className="flex flex-col items-center gap-4">
-              <h3 className="text-[hsl(var(--player-blue))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">Player</h3>
+              <h3 className="text-[hsl(var(--player-blue))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">閒家</h3>
               <div className="flex -space-x-12 md:-space-x-16 min-h-[144px] md:min-h-[192px]">
                  {gameState.currentRound?.status === 'payout' || lastResult ? (
                     lastResult?.player.cards.map((card, i) => (
@@ -173,7 +173,7 @@ export default function Game() {
 
             {/* BANKER HAND */}
             <div className="flex flex-col items-center gap-4">
-              <h3 className="text-[hsl(var(--banker-red))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">Banker</h3>
+              <h3 className="text-[hsl(var(--banker-red))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">莊家</h3>
               <div className="flex -space-x-12 md:-space-x-16 min-h-[144px] md:min-h-[192px]">
                  {gameState.currentRound?.status === 'payout' || lastResult ? (
                     lastResult?.banker.cards.map((card, i) => (
@@ -211,7 +211,7 @@ export default function Game() {
               */}
               
               <BettingSpot 
-                type="player_pair" label="P. Pair" payout="11:1" 
+                type="player_pair" label="閒對" payout="11:1" 
                 amount={bets.player_pair} onBet={handlePlaceBet}
                 className="col-span-2 row-span-1 border-r-0 rounded-br-none"
                 color="player"
@@ -219,7 +219,7 @@ export default function Game() {
               />
               
               <BettingSpot 
-                type="tie" label="TIE" payout="8:1" 
+                type="tie" label="和局" payout="8:1" 
                 amount={bets.tie} onBet={handlePlaceBet}
                 className="col-span-2 row-span-1 rounded-b-none"
                 color="tie"
@@ -227,7 +227,7 @@ export default function Game() {
               />
               
               <BettingSpot 
-                type="banker_pair" label="B. Pair" payout="11:1" 
+                type="banker_pair" label="莊對" payout="11:1" 
                 amount={bets.banker_pair} onBet={handlePlaceBet}
                 className="col-span-2 row-span-1 border-l-0 rounded-bl-none"
                 color="banker"
@@ -235,7 +235,7 @@ export default function Game() {
               />
 
               <BettingSpot 
-                type="player" label="PLAYER" payout="1:1" 
+                type="player" label="閒家" payout="1:1" 
                 amount={bets.player} onBet={handlePlaceBet}
                 className="col-span-3 row-span-1 rounded-tr-none rounded-t-none"
                 color="player"
@@ -243,7 +243,7 @@ export default function Game() {
               />
               
               <BettingSpot 
-                type="banker" label="BANKER" payout="0.95:1" 
+                type="banker" label="莊家" payout="0.95:1" 
                 amount={bets.banker} onBet={handlePlaceBet}
                 className="col-span-3 row-span-1 rounded-tl-none rounded-t-none"
                 color="banker"
@@ -274,7 +274,7 @@ export default function Game() {
                   disabled={totalBet === 0 || dealMutation.isPending}
                   className="text-white hover:bg-white/10 hover:text-red-400 gap-2"
                 >
-                  <Trash2 className="w-4 h-4" /> Clear
+                  <Trash2 className="w-4 h-4" /> 清空
                 </Button>
 
                 {previousBets && (
@@ -284,7 +284,7 @@ export default function Game() {
                     disabled={totalBet > 0 || dealMutation.isPending}
                     className="text-white hover:bg-white/10 gap-2"
                   >
-                    <Repeat className="w-4 h-4" /> Rebet
+                    <Repeat className="w-4 h-4" /> 重複下注
                   </Button>
                 )}
                 
@@ -299,7 +299,7 @@ export default function Game() {
                       : "bg-gradient-to-b from-[hsl(var(--casino-gold-light))] to-[hsl(var(--casino-gold))] text-black hover:scale-105 active:scale-95 border border-yellow-200"
                   )}
                 >
-                  {dealMutation.isPending ? "DEALING..." : "DEAL"}
+                  {dealMutation.isPending ? "發牌中..." : "發牌"}
                 </Button>
               </div>
 
