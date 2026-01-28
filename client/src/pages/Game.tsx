@@ -149,48 +149,78 @@ export default function Game() {
             {/* PLAYER HAND */}
             <div className="flex flex-col items-center gap-4">
               <h3 className="text-[hsl(var(--player-blue))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">閒家</h3>
-              <div className="flex -space-x-12 md:-space-x-16 min-h-[144px] md:min-h-[192px]">
+              <div className="flex gap-2 min-h-[144px] md:min-h-[192px]">
                  {gameState.currentRound?.status === 'payout' || lastResult ? (
                     lastResult?.player.cards.map((card, i) => (
-                      <PlayingCard key={`p-${i}`} card={card} index={i} className="shadow-[-10px_0_20px_rgba(0,0,0,0.5)]" />
+                      <PlayingCard 
+                        key={`p-${i}`} 
+                        card={card} 
+                        index={i} 
+                        className="shadow-lg"
+                        animate={{
+                          opacity: [0, 1],
+                          x: [-50, 0],
+                          rotateY: [90, 0],
+                        }}
+                        transition={{
+                          delay: i * 0.4, // Sequential deal: Player 1 (0), Player 3 (0.8)
+                          duration: 0.5
+                        }}
+                      />
                     ))
                  ) : (
-                    <>
-                      {/* Empty placeholders or card backs */}
-                      <PlayingCard hidden className="opacity-20" />
-                      <PlayingCard hidden className="opacity-20 translate-x-4" />
-                    </>
+                   <div className="w-24 md:w-32 h-36 md:h-48 rounded-xl border-2 border-dashed border-white/20 flex items-center justify-center text-white/20 font-serif">閒</div>
                  )}
               </div>
               <div className="h-8">
                  {lastResult && (
-                   <div className="bg-[hsl(var(--player-blue))] text-white px-3 py-0.5 rounded-full text-lg font-bold shadow-lg">
+                   <motion.div 
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{ delay: 1.5 }}
+                     className="bg-[hsl(var(--player-blue))] text-white px-3 py-0.5 rounded-full text-lg font-bold shadow-lg"
+                   >
                      {lastResult.player.score}
-                   </div>
+                   </motion.div>
                  )}
               </div>
             </div>
 
-            {/* BANKER HAND */}
             <div className="flex flex-col items-center gap-4">
               <h3 className="text-[hsl(var(--banker-red))] font-serif text-xl md:text-2xl font-bold tracking-widest uppercase mb-4">莊家</h3>
-              <div className="flex -space-x-12 md:-space-x-16 min-h-[144px] md:min-h-[192px]">
+              <div className="flex gap-2 min-h-[144px] md:min-h-[192px]">
                  {gameState.currentRound?.status === 'payout' || lastResult ? (
                     lastResult?.banker.cards.map((card, i) => (
-                      <PlayingCard key={`b-${i}`} card={card} index={i} className="shadow-[-10px_0_20px_rgba(0,0,0,0.5)]" />
+                      <PlayingCard 
+                        key={`b-${i}`} 
+                        card={card} 
+                        index={i} 
+                        className="shadow-lg"
+                        animate={{
+                          opacity: [0, 1],
+                          x: [50, 0],
+                          rotateY: [90, 0],
+                        }}
+                        transition={{
+                          delay: (i * 0.4) + 0.2, // Sequential deal: Banker 2 (0.2), Banker 4 (1.0)
+                          duration: 0.5
+                        }}
+                      />
                     ))
                  ) : (
-                    <>
-                      <PlayingCard hidden className="opacity-20" />
-                      <PlayingCard hidden className="opacity-20 translate-x-4" />
-                    </>
+                   <div className="w-24 md:w-32 h-36 md:h-48 rounded-xl border-2 border-dashed border-white/20 flex items-center justify-center text-white/20 font-serif">莊</div>
                  )}
               </div>
               <div className="h-8">
                 {lastResult && (
-                   <div className="bg-[hsl(var(--banker-red))] text-white px-3 py-0.5 rounded-full text-lg font-bold shadow-lg">
+                   <motion.div 
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{ delay: 1.5 }}
+                     className="bg-[hsl(var(--banker-red))] text-white px-3 py-0.5 rounded-full text-lg font-bold shadow-lg"
+                   >
                      {lastResult.banker.score}
-                   </div>
+                   </motion.div>
                  )}
               </div>
             </div>
